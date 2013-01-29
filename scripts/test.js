@@ -64,6 +64,7 @@ window.addEventListener('load', function () {
     canvas.addEventListener('mousedown', ev_canvas, false);
     canvas.addEventListener('mousemove', ev_canvas, false);
     canvas.addEventListener('mouseup',   ev_canvas, false);
+    canvas.addEventListener('touchstart',   ev_canvas, false);
   }
 
   // The general-purpose event handler. This function just determines the mouse 
