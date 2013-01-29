@@ -117,7 +117,7 @@ window.addEventListener('load', function () {
         context.moveTo(ev._x, ev._y);
         tool.started = true;
     };
-this.touchstart = this.mousedown;
+    this.touchstart = this.mousedown;
 
     // This function is called every time you move the mouse. Obviously, it only 
     // draws if the tool.started state is set to true (when you are holding down 
@@ -128,7 +128,7 @@ this.touchstart = this.mousedown;
         context.stroke();
       }
     };
-this.touchmove = this.mousemove;
+    this.touchmove = this.mousemove;
 
     // This is called when you release the mouse button.
     this.mouseup = function (ev) {
@@ -138,8 +138,8 @@ this.touchmove = this.mousemove;
         img_update();
       }
     };
+    this.touchend = this.mouseup;
   };
-this.touchend = this.mouseup;
 
   // The rectangle tool.
   tools.rect = function () {
