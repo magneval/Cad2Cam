@@ -63,6 +63,10 @@ function ol() {
 	ctx = canvas.getContext('2d');
 	timer = setInterval(update, 15);
 
+canvas.addEventListener('mousedown', function(ev) {
+	alert(ev);
+});
+
 canvas.addEventListener('touchend', function() {
 	ctx.clearRect(0, 0, w, h);
 });
