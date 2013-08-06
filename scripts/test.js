@@ -1,7 +1,7 @@
 /* Â© 2009 ROBO Design
  * http://www.robodesign.ro
  */
-
+var updateStarted = false;
 // Keep everything in anonymous function, called on window load.
 if(window.addEventListener) {
 window.addEventListener('load', function () {
