@@ -151,7 +151,7 @@ window.addEventListener('load', function () {
   // #imageTemp is cleared. This function is called each time when the user 
   // completes a drawing operation.
   function img_update () {
-  	contexto.drawImage(canvas, 0, 0);
+  	ctx0.drawImage(canvas, 0, 0);
 		context.clearRect(0, 0, canvas.width, canvas.height);
   }
 
