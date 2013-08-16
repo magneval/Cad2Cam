@@ -57,7 +57,6 @@ function update() {
 // Keep everything in anonymous function, called on window load.
 if(window.addEventListener) {
 window.addEventListener('load', function () {
-  //var context, canvaso;
 
   // The active tool instance.
   var tool;
@@ -152,7 +151,7 @@ window.addEventListener('load', function () {
   // completes a drawing operation.
   function img_update () {
   	ctx0.drawImage(canvas, 0, 0);
-		context.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   // This object holds the implementation of each drawing tool.
