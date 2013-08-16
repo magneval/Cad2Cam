@@ -4,6 +4,8 @@
 var updateStarted = false;
 
 
+var canvas0;
+var ctx0;
 var canvas;
 var ctx;
 var w = 0;
@@ -55,7 +57,7 @@ function update() {
 // Keep everything in anonymous function, called on window load.
 if(window.addEventListener) {
 window.addEventListener('load', function () {
-  var context, canvaso, contexto;
+  //var context, canvaso;
 
   // The active tool instance.
   var tool;
@@ -64,26 +66,26 @@ window.addEventListener('load', function () {
   function init () {
 	timer = setInterval(update, 15);
     // Find the canvas element.
-    canvaso = document.getElementById('imageView');
-    if (!canvaso) {
+    canvas0 = document.getElementById('imageView');
+    if (!canvas0) {
       alert('Error: I cannot find the canvas element!');
       return;
     }
 
-    if (!canvaso.getContext) {
+    if (!canvas0.getContext) {
       alert('Error: no canvas.getContext!');
       return;
     }
 
     // Get the 2D canvas context.
-    contexto = canvaso.getContext('2d');
-    if (!contexto) {
+    ctx0 = canvas0.getContext('2d');
+    if (!ctx0) {
       alert('Error: failed to getContext!');
       return;
     }
 
     // Add the temporary canvas.
-    var container = canvaso.parentNode;
+    var container = canvas0.parentNode;
     canvas = document.createElement('canvas');
     if (!canvas) {
       alert('Error: I cannot create a new canvas element!');
@@ -91,11 +93,11 @@ window.addEventListener('load', function () {
     }
 
     canvas.id     = 'imageTemp';
-    canvas.width  = canvaso.width;
-    canvas.height = canvaso.height;
+    canvas.width  = canvas0.width;
+    canvas.height = canvas0.height;
     container.appendChild(canvas);
 
-    context = canvas.getContext('2d');
+    ctx = canvas.getContext('2d');
 
     // Get the tool select input.
     var tool_select = document.getElementById('dtool');
@@ -164,8 +166,8 @@ window.addEventListener('load', function () {
     // This is called when you start holding down the mouse button.
     // This starts the pencil drawing.
     this.mousedown = function (ev) {
-        context.beginPath();
-        context.moveTo(ev._x, ev._y);
+        ctx.beginPath();
+        ctx.moveTo(ev._x, ev._y);
         tool.started = true;
     };
     this.touchstart = this.mousedown;
@@ -175,8 +177,8 @@ window.addEventListener('load', function () {
     // the mouse button).
     this.mousemove = function (ev) {
       if (tool.started) {
-        context.lineTo(ev._x, ev._y);
-        context.stroke();
+        ctx.lineTo(ev._x, ev._y);
+        ctx.stroke();
       }
     };
     this.touchmove = this.mousemove;
@@ -213,13 +215,13 @@ window.addEventListener('load', function () {
           w = Math.abs(ev._x - tool.x0),
           h = Math.abs(ev._y - tool.y0);
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (!w || !h) {
         return;
       }
 
-      context.strokeRect(x, y, w, h);
+      ctx.strokeRect(x, y, w, h);
     };
 
     this.mouseup = function (ev) {
@@ -247,13 +249,13 @@ window.addEventListener('load', function () {
         return;
       }
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      context.beginPath();
-      context.moveTo(tool.x0, tool.y0);
-      context.lineTo(ev._x,   ev._y);
-      context.stroke();
-      context.closePath();
+      ctx.beginPath();
+      ctx.moveTo(tool.x0, tool.y0);
+      ctx.lineTo(ev._x,   ev._y);
+      ctx.stroke();
+      ctx.closePath();
     };
 
     this.mouseup = function (ev) {
