@@ -70,17 +70,20 @@ canvas.addEventListener('mousedown', function(ev) {
 });
 
 canvas.addEventListener('mousemove', function(ev) {
-	//alert(ev);
+if(  touches.length>0){
   event.preventDefault();
   touches =[ event];
+}
 });
 
 canvas.addEventListener('mouseup', function() {
 	ctx.clearRect(0, 0, w, h);
+  touches =[ ];
 });
 
 canvas.addEventListener('touchend', function() {
 	ctx.clearRect(0, 0, w, h);
+  touches =[ ];
 });
 canvas.addEventListener('touchmove', function(event) {
   event.preventDefault();
