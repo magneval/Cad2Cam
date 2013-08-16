@@ -29,6 +29,10 @@ function update() {
 		canvas.style.height = h+'px';
 		canvas.width = w;
 		canvas.height = h;
+		canvas0.style.width = w+'px';
+		canvas0.style.height = h+'px';
+		canvas0.width = w;
+		canvas0.height = h;
 	}
 
 	ctx.clearRect(0, 0, w, h);
