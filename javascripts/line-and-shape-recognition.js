@@ -2,6 +2,87 @@ var updateStarted = false;
 var w = 0;
 var h = 0;
 
+function getpos(e) {
+    var offset = $(canvas).offset();
+    return {
+        x: e.pageX - offset.left,
+        y: e.pageY - offset.top
+    };
+}
+
+TAN_HALF_PI = Math.tan(Math.PI / 2);
+
+function direction(d) {
+    var horiz = (Math.abs(d.x) > Math.abs(d.y));
+    if (horiz) {
+        if (d.x < 0)
+            return 0;
+        return 1;
+    } else {
+        if (d.y < 0)
+            return 2;
+        return 3;
+    }
+}
+
+colors = ['rgba(255,0,0,0.5)',
+    'rgba(0,255,0,0.5)',
+    'rgba(0,0,255,0.5)',
+    'rgba(200,200,0,0.5)'
+];
+
+function vector(x, y) {
+    return {
+        x: x,
+        y: y
+    };
+}
+
+function delta(a, b) {
+    return vector(a.x - b.x, a.y - b.y);
+}
+
+function angle(d) {
+    return Math.atan((1.0 * d.y) / d.x);
+}
+
+function angle_between(a, b) {
+    return Math.acos((a.x * b.x + a.y * b.y) / (len(a) * len(b)));
+}
+
+function len(v) {
+    return Math.sqrt(v.x * v.x + v.y * v.y);
+}
+
+function unit(c) {
+    var l = len(c);
+    return vector(c.x / len(c), c.y / len(c));
+}
+
+function scale(c, f) {
+    return vector(c.x * f, c.y * f);
+}
+
+function add(a, b) {
+    return vector(a.x + b.x, a.y + b.y);
+}
+
+function rotate(v, a) {
+    return vector(v.x * Math.cos(a) - v.y * Math.sin(a),
+            v.x * Math.sin(a) + v.y * Math.cos(a));
+}
+
+function average(l) {
+    var x = 0;
+    var y = 0;
+    for (var i = 0; i < l.length; i++) {
+        x += l[i].x;
+        y += l[i].y;
+    }
+    ;
+    return vector(x / l.length, y / l.length);
+}
+
 function update() {
     if (updateStarted)
         return;
@@ -39,87 +120,6 @@ $(document).ready(function() {
 
     c = canvas.getContext('2d');
     timer = setInterval(update, 15);
-
-    function getpos(e) {
-        var offset = $(canvas).offset();
-        return {
-            x: e.pageX - offset.left,
-            y: e.pageY - offset.top
-        };
-    }
-
-    TAN_HALF_PI = Math.tan(Math.PI / 2);
-
-    function direction(d) {
-        var horiz = (Math.abs(d.x) > Math.abs(d.y));
-        if (horiz) {
-            if (d.x < 0)
-                return 0;
-            return 1;
-        } else {
-            if (d.y < 0)
-                return 2;
-            return 3;
-        }
-    }
-
-    colors = ['rgba(255,0,0,0.5)',
-        'rgba(0,255,0,0.5)',
-        'rgba(0,0,255,0.5)',
-        'rgba(200,200,0,0.5)'
-    ];
-
-    function vector(x, y) {
-        return {
-            x: x,
-            y: y
-        };
-    }
-
-    function delta(a, b) {
-        return vector(a.x - b.x, a.y - b.y);
-    }
-
-    function angle(d) {
-        return Math.atan((1.0 * d.y) / d.x);
-    }
-
-    function angle_between(a, b) {
-        return Math.acos((a.x * b.x + a.y * b.y) / (len(a) * len(b)));
-    }
-
-    function len(v) {
-        return Math.sqrt(v.x * v.x + v.y * v.y);
-    }
-
-    function unit(c) {
-        var l = len(c);
-        return vector(c.x / len(c), c.y / len(c));
-    }
-
-    function scale(c, f) {
-        return vector(c.x * f, c.y * f);
-    }
-
-    function add(a, b) {
-        return vector(a.x + b.x, a.y + b.y);
-    }
-
-    function rotate(v, a) {
-        return vector(v.x * Math.cos(a) - v.y * Math.sin(a),
-                v.x * Math.sin(a) + v.y * Math.cos(a));
-    }
-
-    function average(l) {
-        var x = 0;
-        var y = 0;
-        for (var i = 0; i < l.length; i++) {
-            x += l[i].x;
-            y += l[i].y;
-        }
-        ;
-        return vector(x / l.length, y / l.length);
-    }
 
     $(canvas).mousedown(function(e) {
         event.preventDefault();
