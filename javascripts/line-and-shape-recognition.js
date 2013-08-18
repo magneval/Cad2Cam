@@ -122,14 +122,14 @@ $(document).ready(function() {
     timer = setInterval(update, 15);
 
     $(canvas).mousedown(function(e) {
-        event.preventDefault();
+        e.preventDefault();
 //	$("#help").fadeOut(200);
         prev = getpos(e);
         line = [prev];
 
 
         $(canvas).mousemove(function(e) {
-            event.preventDefault();
+            e.preventDefault();
             pos = getpos(e);
 
             c.beginPath();
@@ -147,7 +147,7 @@ $(document).ready(function() {
 
         $(canvas).mouseup(function() {
             $(canvas).unbind('mousemove').unbind('mouseup');
-            event.preventDefault();
+            e.preventDefault();
             corners = [line[0]];
             var n = 0;
             var t = 0;
