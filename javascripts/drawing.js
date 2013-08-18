@@ -49,7 +49,7 @@ function update() {
     updateStarted = false;
 }
 
-function ol() {
+$(document).ready(function() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     timer = setInterval(update, 15);
@@ -84,6 +84,5 @@ function ol() {
     canvas.addEventListener('touchstart', function(event) {
         console.log('start');
     });
-}
-;
+})
 
