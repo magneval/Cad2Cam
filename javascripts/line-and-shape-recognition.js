@@ -1,3 +1,26 @@
+var updateStarted = false;
+var w = 0;
+var h = 0;
+
+function update() {
+    if (updateStarted)
+        return;
+    updateStarted = true;
+
+    var nw = window.innerWidth;
+    var nh = window.innerHeight;
+
+    if ((w !== nw) || (h !== nh)) {
+        w = nw;
+        h = nh;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        canvas.width = w;
+        canvas.height = h;
+    }
+    updateStarted = false;
+}
+
 $(document).ready(function() {
 
     canvas = document.getElementById('canvas');
@@ -15,6 +38,7 @@ $(document).ready(function() {
 //}
 
     c = canvas.getContext('2d');
+    timer = setInterval(update, 15);
 
     function getpos(e) {
         var offset = $(canvas).offset();
