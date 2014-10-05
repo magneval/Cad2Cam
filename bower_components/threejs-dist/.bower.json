@@ -1,0 +1,16 @@
+{
+  "name": "threejs-dist",
+  "version": "0.68.2",
+  "main": "three.js",
+  "homepage": "https://github.com/yjx3097890/threejs-dist",
+  "_release": "0.68.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.68.2",
+    "commit": "46dc8610b173fa252ff855a2c929239dff58ac8b"
+  },
+  "_source": "git://github.com/yjx3097890/threejs-dist.git",
+  "_target": "~0.68.2",
+  "_originalSource": "threejs-dist",
+  "_direct": true
+}
