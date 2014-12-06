@@ -1,1 +1,197 @@
-<>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Touch Tracker Marker</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <style type="text/css">
+	body {
+		margin: 0px;
+		overflow: hidden;
+		}
+	canvas {
+		border: 1px solid black;
+		}
+	aside {
+		border: 1px solid black;
+		background-color: silver;
+		}
+	aside img {
+		height:20px;
+		width:20px;
+		background-color:white;
+		}
+		/*
+	aside span {
+		height:20px;
+		width:20px;
+		background-color:white;
+		}
+		*/
+	aside span svg {
+		height:20px;
+		width:20px;
+		background-color:white;
+		fill: none;
+		stroke:black;
+		}
+		#sketch{
+	    background-color: antiquewhite;
+		}
+		#sketch *{
+	    background-color: yellow;
+	    fill:cyan;
+	    margin:10px;
+	    padding:10px;
+	    marker:green;
+		}
+		#sketch *:hover{
+			fill:white;
+                   marker-start: url(#markerSquare2);
+                   marker-mid: url(#markerSquare);
+                   marker-end: url(#markerSquare2);
+		}
+    </style>
+    <script type="text/javascript">
+
+var canvas;
+var ctx;
+var w = 0;
+var h = 0;
+
+var timer;
+var updateStarted = false;
+var touches = [];
+
+function update() {
+  if (updateStarted) return;
+	updateStarted = true;
+
+	var nw = window.innerWidth;
+	var nh = window.innerHeight;
+
+	if ((w != nw) || (h != nh)) {
+		w = nw;
+		h = nh;
+		canvas.style.width = w+'px';
+		canvas.style.height = h+'px';
+		canvas.width = w;
+		canvas.height = h;
+	}
+
+	ctx.clearRect(0, 0, w, h);
+
+	var i, len = touches.length;
+	for (i=0; i<len; i++) {
+		var touch = touches[i];
+		var px = touch.pageX;
+		var py = touch.pageY;
+
+		ctx.beginPath();
+		ctx.arc(px, py, 20, 0, 2*Math.PI, true);
+
+		ctx.fillStyle = "rgba(0, 0, 200, 0.2)";
+		ctx.fill();
+
+		ctx.lineWidth = 2.0;
+		ctx.strokeStyle = "rgba(0, 0, 200, 0.8)";
+		ctx.stroke();
+		console.log('drawn circle at ' + px +',' + py);
+	}
+
+	updateStarted = false;
+}
+
+function ol() {
+	canvas = document.getElementById('canvas');
+	ctx = canvas.getContext('2d');
+	timer = setInterval(update, 15);
+
+	canvas.addEventListener('mousedown', function(ev) {
+	alert(ev);
+});
+
+canvas.addEventListener('touchend', function() {
+	ctx.clearRect(0, 0, w, h);
+});
+
+canvas.addEventListener('touchmove', function(event) {
+	event.preventDefault();
+	touches = event.touches;
+});
+
+canvas.addEventListener('touchstart', function(event) {
+	console.log('start');
+});
+};
+
+    </script>
+  </head>
+  <body onload="ol()">
+    <aside>
+    	<span><svg><g><line x1="5" y1="15" x2="15" y2="5" /></g></svg></span>
+      <img src="img/svg/software_vector_line.svg"/>	
+    	<span>C</span>
+      <img src="http://upload.wikimedia.org/wikipedia/commons/1/17/Liaison_ponctuelle_3D_vectorielle.svg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/6/67/3d_rectiligne.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/d/de/3d_annulaire.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/5/5b/SockBall.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/9/90/3d_glissant.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/c/c6/3d_plan.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/7/7c/3d_pivot.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/7/7d/3d_glissiere.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/a/a5/3d_helicoidale.jpg"/>	
+      <img src="http://upload.wikimedia.org/wikipedia/commons/1/19/RotDoigt.jpg"/>	
+    </aside>
+    <!--
+    <canvas id="canvas" width="300" height="300" style="top:0px; left:0px; width: 300px; height: 300px;"></canvas>
+		-->
+		<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1"
+id="sketch"
+x="0px" y="0px"
+style="
+			"
+		>
+<defs>
+  <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
+          orient="auto" markerUnits="userSpaceOnUse" >
+      <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
+  </marker>
+  <marker id="markerSquare2" markerWidth="7" markerHeight="7" refx="4" refy="4"
+          orient="auto" markerUnits="userSpaceOnUse" >
+      <rect x="1" y="1" width="5" height="5" style="stroke: black; stroke-width:1px;fill:white;"/>
+  </marker>
+</defs>
+			<rect
+				x="10"
+				y="10"
+				fill="red"
+				stroke="blue"
+				stroke-width="2"
+				stroke-miterlimit="10"
+				width="220"
+				height="100"
+				/>
+				<line x1="5" y1="150" x2="150" y2="5" stroke="red" stroke-width="1"/>
+		    <polyline points="10,2  60,2  35,52"
+	        style="stroke:#006600; stroke-width: 2;
+               fill: #33cc33;"/>
+    		<circle cx="240" cy="40" r="24" fill="grey" style="stroke:#006600; "/>
+    <path d="M50,50
+             A30,30 0 0,1 35,20
+             L100,100
+             M110,110
+             L100,0
+             "
+          style="stroke:#660000; fill:none;"/>    
+
+    <path d="M50,150
+             A130,50 0 0,1 100,100
+             Z"
+          style="stroke:#660000; fill:none;"/>  
+          
+		</svg>
+  </body>
+</html>
