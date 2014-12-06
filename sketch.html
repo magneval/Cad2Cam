@@ -36,6 +36,7 @@
 	}
 	#sketch{
 		background-color: antiquewhite;
+		stroke-width:1;
 	}
 	#sketch *{
 		background-color: yellow;
@@ -155,7 +156,7 @@ canvas.addEventListener('touchstart', function(event) {
 		</defs>
 		<g id="pad">
 			<g id="sketch">
-				<line x1="5" y1="150" x2="150" y2="5" stroke="red" style="stroke-width:1"/>
+				<line x1="5" y1="150" x2="150" y2="5" stroke="red"/>
 				<polyline points="10,2  60,2  35,52"
 					style="stroke:#006600; stroke-width: 2;
 					fill: #33cc33;"/>
@@ -172,7 +173,7 @@ canvas.addEventListener('touchstart', function(event) {
 				style="stroke:#660000; fill:none;"/>  
 			</g>
 		</g>
-		<use id="select" xlink:href="#sketch" style="stroke-width: 3px;" />
+		<use id="select" xlink:href="#sketch" style="stroke-width: 1px;" />
 	</svg>
   </body>
 </html>
