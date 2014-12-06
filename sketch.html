@@ -155,7 +155,7 @@ canvas.addEventListener('touchstart', function(event) {
 		  </marker>
 		</defs>
 		<g id="pad">
-			<g id="sketch">
+			<g id="select">
 				<line x1="5" y1="150" x2="150" y2="5" stroke="red"/>
 				<polyline points="10,2  60,2  35,52"
 					style="stroke:#006600; stroke-width: 2;
@@ -168,12 +168,12 @@ canvas.addEventListener('touchstart', function(event) {
 					"
 				style="stroke:#660000; fill:none;"/>    
 				<path d="M50,150
-					A130,50 0 0,1 100,100
+					A130,50 0 0,1 100,100!!
 					Z"
 				style="stroke:#660000; fill:none;"/>  
 			</g>
 		</g>
-		<use id="select" xlink:href="#sketch" style="stroke-width: 1px;" />
+		<use id="sketch" xlink:href="#sketch" style="stroke-width: 1px;" />
 	</svg>
   </body>
 </html>
