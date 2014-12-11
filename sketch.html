@@ -92,18 +92,20 @@
 				timer = setInterval(update, 15);
 			
 				canvas.addEventListener('mousedown', function(ev) {
-					//alert(ev);
-					$("#Xstart").value=ev.layerX;
+					$( "input[name='Xstart']" ).val(ev.clientX);
+					$( "input[name='Ystart']" ).val(ev.clientY);
 				});
 			
 				canvas.addEventListener('mouseup', function(ev) {
-					alert(ev);
+					$( "input[name='Xstart']" ).val(ev.clientX);
+					$( "input[name='Ystart']" ).val(ev.clientY);
 				});
-			/*
+			
 				canvas.addEventListener('mousemove', function(ev) {
-					alert(ev);
+					$( "input[name='Xstart']" ).val(ev.clientX);
+					$( "input[name='Ystart']" ).val(ev.clientY);
 				});
-			*/
+			
 				canvas.addEventListener('touchend', function() {
 					//ctx.clearRect(0, 0, w, h);
 				});
