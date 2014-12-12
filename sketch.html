@@ -29,6 +29,9 @@
 				stroke-width:1;
 				stroke:black;
 			}
+			#origin {
+				marker-start: url(#markerCross);
+			}
 			footer{
 				position:fixed;
 				bottom:0;
@@ -92,18 +95,18 @@
 				timer = setInterval(update, 15);
 			
 				canvas.addEventListener('mousedown', function(ev) {
-					$( "input[name='Xstart']" ).val(ev.clientX);
-					$( "input[name='Ystart']" ).val(ev.clientY);
+					$( "input[name='Xstart']" ).val(ev.offsetX);
+					$( "input[name='Ystart']" ).val(ev.offsetY);
 				});
 			
 				canvas.addEventListener('mouseup', function(ev) {
-					$( "input[name='Xstart']" ).val(ev.clientX);
-					$( "input[name='Ystart']" ).val(ev.clientY);
+					$( "input[name='Xstart']" ).val(ev.offsetX);
+					$( "input[name='Ystart']" ).val(ev.offsetY);
 				});
 			
 				canvas.addEventListener('mousemove', function(ev) {
-					$( "input[name='Xstart']" ).val(ev.clientX);
-					$( "input[name='Ystart']" ).val(ev.clientY);
+					$( "input[name='Xstart']" ).val(ev.offsetX);
+					$( "input[name='Ystart']" ).val(ev.offsetY);
 				});
 			
 				canvas.addEventListener('touchend', function() {
@@ -131,15 +134,25 @@
     <!--
     <canvas id="canvas" width="300" height="300" style="top:0px; left:0px; width: 300px; height: 300px;"></canvas>
 		-->
+		<!--
+		viewBox="-200 -200 200 200" 
+		-->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			version="1.1"
 			x="0px" y="0px"
+			viewBox="-300 -300 500 1000" 
 			style="
 			"
+			preserveAspectRatio="xMidYMid meet"
 			Id="canvas">
 			<defs>
+			  <marker id="markerCross" markerWidth="7" markerHeight="7" refx="4" refy="4"
+			          orient="auto" markerUnits="userSpaceOnUse" >
+						<line x1="1" y1="3" x2="5" y2="3" stroke="red"/>
+						<line x1="3" y1="1" x2="3" y2="5" stroke="red"/>
+			  </marker>
 			  <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
 			          orient="auto" markerUnits="userSpaceOnUse" >
 			      <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
@@ -166,8 +179,17 @@
 						A130,50 0 0,1 100,100
 						Z"
 					style="stroke:#660000; fill:none;"/>  
+					<path d="M0,0
+						L0,0
+						Z"
+					style="stroke:#660000; fill:none;"/>  
 				</g>
 			</g>
+			<path id="origin"
+				d="M0,0
+				l0,0
+				Z"
+			style="stroke:#660000; fill:none;"/>  
 			<use id="sketch" xlink:href="#sketch" style="stroke-width: 1px;stroke:black" />
 		</svg>
 		<footer>
