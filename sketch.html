@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" href="stylesheets/editor.css" type="text/css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="https://hammerjs.github.io/dist/hammer.js"></script>
     <style type="text/css">
     	svg {
 		    transform: scale(1,-1); /* Standard syntax */
@@ -53,6 +54,7 @@
 			var dx=0;
 			var dy=0;
 			var ratio=1;
+			var initScale;
 			var cx=0;
 			var cy=0;
 			var cw = 0;
@@ -76,47 +78,99 @@
 					canvas.style.height = h+'px';
 					canvas.width = w;
 					canvas.height = h;
-					ch=h/ratio;
-					cw=w/ratio;
-					cx=Math.round(cw/2-dx);
-					cy=Math.round(ch/2-dy);
-					//ratio=1;
-					$("#canvas")[0].viewBox.baseVal.x=-cx;
-					$("#canvas")[0].viewBox.baseVal.y=-cy;
-					$("#canvas")[0].viewBox.baseVal.height=ch;
-					$("#canvas")[0].viewBox.baseVal.width=cw;
+					reInit();
 				}
 
-				//ctx.clearRect(0, 0, w, h);
-			
+
 				var i, len = touches.length;
 				for (i=0; i<len; i++) {
 					var touch = touches[i];
 					var px = touch.pageX;
 					var py = touch.pageY;
-			
-			/*
+
+/*			
 					ctx.beginPath();
-					ctx.arc(px, py, 20, 0, 2*Math.PI, true);
-			
+					ctx.arc(px, py, 20, 0, 2 * Math.PI, true);
 					ctx.fillStyle = "rgba(0, 0, 200, 0.2)";
 					ctx.fill();
-			
 					ctx.lineWidth = 2.0;
 					ctx.strokeStyle = "rgba(0, 0, 200, 0.8)";
 					ctx.stroke();
 					*/
-					console.log('drawn circle at ' + px +',' + py);
+					//console.log('drawn circle at ' +/ px +',' + py);
+					//canvas.
 				}
 			
 				updateStarted = false;
 			}
+			function onPan(ev) {
+				if(ev.type=="panstart"){
+					dx=0;
+					dy=0;
+				}
+				cx=cx+ev.deltaX-dx;
+				cy=cy-ev.deltaY+dy;
+				dx=ev.deltaX;
+				dy=ev.deltaY;
+				updateViewBox();
+			}
+			function onRotate(ev) {
+			}
+			function onPinch(ev) {
+				if (ev.type == 'pinchstart') {
+					initScale = ratio || 1;
+					dx=ev.center.x;
+					dy=ev.center.y;
+					/*
+					cx=ev.center.w/ratio-cx;
+					cy=ev.center.y/ratio-cy;
+					*/
+				}
+				ratio = initScale * ev.scale;
+				ch=h/ratio;
+				cw=w/ratio;
+				/*
+				cx=cx+dx/initScale-dx/ratio;
+				cy=cy+dy/initScale-dy/ratio;
+				*/
+
+				updateViewBox();
+			}
+			function onSwipe(ev) {
+			}
+			function onTap(ev) {
+			}
+			function onDoubleTap(ev) {
+					reInit();
+			}
+			function reInit() {
+				ratio=1;
+				ch=h/ratio;
+				cw=w/ratio;
+				cx=Math.round(cw/2-dx);
+				cy=Math.round(ch/2-dy);
+				updateViewBox();
+			}
 			
-			function afficheCoodinate(x,y)  {
+			function updateViewBox()  {
+					//ratio=1;
+					$("#canvas")[0].viewBox.baseVal.x=-cx;
+					$("#canvas")[0].viewBox.baseVal.y=-cy;
+					$("#canvas")[0].viewBox.baseVal.height=ch;
+					$("#canvas")[0].viewBox.baseVal.width=cw;
+			}
+			
+			function translateCoodinate(x,y)  {
 				var xc=x/ratio-cx;
 				var yc=y/ratio-cy;
-				$( "input[name='Xstart']" ).val(xc);
-				$( "input[name='Ystart']" ).val(yc);
+				return [xc,yc]
+			}
+			
+			function afficheCoodinate(x,y)  {
+				var c=translateCoodinate(x,y);
+				$( "input[name='Xstart']" ).val(c[0]);
+				$( "input[name='Ystart']" ).val(c[1]);
+				//canvas
 			};
 			
 			function ol() {
@@ -148,6 +202,19 @@
 				canvas.addEventListener('touchstart', function(event) {
 					console.log('start');
 				});
+				var mc = new Hammer.Manager(canvas);
+				mc.add(new Hammer.Pan({threshold: 0, pointers: 2}));
+				mc.add(new Hammer.Swipe()).recognizeWith(mc.get('pan'));
+				mc.add(new Hammer.Rotate({threshold: 0})).recognizeWith(mc.get('pan'));
+				mc.add(new Hammer.Pinch({threshold: 0})).recognizeWith([mc.get('pan'), mc.get('rotate')]);
+				mc.add(new Hammer.Tap({event: 'doubletap', taps: 2}));
+				mc.add(new Hammer.Tap());
+				mc.on("panstart panmove", onPan);
+				mc.on("rotatestart rotatemove", onRotate);
+				mc.on("pinchstart pinchmove", onPinch);
+				mc.on("swipe", onSwipe);
+				mc.on("tap", onTap);
+				mc.on("doubletap", onDoubleTap);
 			};
 
     </script>
@@ -192,7 +259,9 @@
 			      <rect x="1" y="1" width="5" height="5" style="stroke: black; stroke-width:1px;fill:white;"/>
 			  </marker>
 			</defs>
-
+				<g id="tracker">
+			    <circle cx="0" cy="0" r="10" fill="blue"/>
+				</g>
 				<g id="pad"
 					<g id="select">
 						<line x1="5" y1="150" x2="150" y2="5" stroke="red"/>
