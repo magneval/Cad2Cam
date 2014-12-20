@@ -9,10 +9,21 @@
         <style>
         
         body {
-          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-          width: 960px;
-          height: 500px;
-          position: relative;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            width: 960px;
+            height: 500px;
+            position: relative;
+        }
+        /*
+    	svg {
+		    transform: scale(1,-1); 
+    	}
+    	*/
+        svg line.origin {
+    		marker-start: url(#markerCross);
+    		marker-end: url(#markerArrow);
+    		stroke: black;
+    		stroke-width:1px;
         }
         </style>
         <script>
@@ -32,6 +43,10 @@
             }
             
             
+            var zoom = d3.behavior.zoom()
+                .scaleExtent([1, 10])
+                .on("zoom", zoomed);
+            
             var svg = d3.select("body").append("svg")
                 .attr("width", width)
                 .attr("height", height);
@@ -45,7 +60,7 @@
             svg.on("touchmove",toucheFunction
             );
             */
-var circle = svg.selectAll("circle.touch");
+            var circle = svg.selectAll("circle.touch");
             function touch() {
               d3.event.preventDefault();
 
@@ -70,8 +85,57 @@ var circle = svg.selectAll("circle.touch");
 
             }             
             var transform= svg.append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(1)");
-                			
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(1,-1)")
+                .call(zoom);
+
+            var container = transform.append("g")
+            ;
+			/*
+			<defs>
+			  <marker id="markerCross" markerWidth="5" markerHeight="5" refx="3" refy="3"
+			          orient="auto" markerUnits="userSpaceOnUse" >
+						<line x1="1" y1="3" x2="5" y2="3" stroke="red"/>
+						<line x1="3" y1="1" x2="3" y2="5" stroke="red"/>
+			  </marker>
+		    <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6"
+		           orient="auto">
+		        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+		    </marker>
+			  <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
+			          orient="auto" markerUnits="userSpaceOnUse" >
+			      <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
+			  </marker>
+			  <marker id="markerSquare2" markerWidth="7" markerHeight="7" refx="4" refy="4"
+			          orient="auto" markerUnits="userSpaceOnUse" >
+			      <rect x="1" y="1" width="5" height="5" style="stroke: black; stroke-width:1px;fill:white;"/>
+			  </marker>
+			</defs>
+				<path id="origin"
+					d="M0,0
+					l0,100
+					"
+				style="stroke:#660000; fill:none;"/>  
+				<path id="origin"
+					d="M0,0
+					l100,0
+					"
+				style="stroke:#660000; fill:none;"/>  
+			*/
+			container.append("line")
+                .attr("class", "origin")
+                .attr("x1", 0)
+                .attr("y1", 0)
+                .attr("x2", 100)
+                .attr("y2", 0);
+
+			container.append("line")
+                .attr("class", "origin")
+                .attr("x1", 0)
+                .attr("y1", 0)
+                .attr("x2", 0)
+                .attr("y2", 100);
+
+
             d3.select("body")
                 .on("touchstart", touch)
                 .on("touchmove", touch)
@@ -83,11 +147,11 @@ var circle = svg.selectAll("circle.touch");
     			updateStarted = true;
     		
     
-                transform.selectAll(".touches").remove();
-                transform.selectAll(".touches").
+                container.selectAll(".touches").remove();
+                container.selectAll(".touches").
                     data(touches).
                     append("circle").
-                    attr("r",10 ).
+                    attr("r",5 ).
                     attr("rx", function(d) {
                         }).
                     attr("ry", function(d) {
@@ -98,6 +162,11 @@ var circle = svg.selectAll("circle.touch");
     			updateStarted = false;
     		}
 
+
+function zoomed() {
+  container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    //transform.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ",-" + d3.event.scale + ")");
+}
     		timer = setInterval(update, 15);
         </script>        
     </body>
