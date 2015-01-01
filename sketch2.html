@@ -80,6 +80,7 @@
                 .attr("x2", 3)
                 .attr("y2", 5)
                 .attr("stroke", "red")
+			    .attr("markerUnits","userSpaceOnUse")
             ;
             /*
             <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6"
@@ -89,13 +90,17 @@
             */
 			var markerArrow=defs.append("marker")
 			    .attr("id","markerArrow")
-			    .attr("markerWidth",5)
-			    .attr("markerHeight",5)
-			    .attr("refX",3)
-			    .attr("refY",3)
+			    .attr("markerWidth",13)
+			    .attr("markerHeight",13)
+			    .attr("refX",2)
+			    .attr("refY",6)
 			    .attr("orient","auto")
 			    .attr("markerUnits","userSpaceOnUse")
 			    ;
+			markerArrow.append("path")
+                .attr("d", "M2,2 L2,11 L10,6 L2,2" )
+                .attr("fill", "black")
+            ;
             /*
             <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
                   orient="auto" markerUnits="userSpaceOnUse" >
@@ -104,13 +109,22 @@
             */
 			var markerSquare=defs.append("marker")
 			    .attr("id","markerSquare")
-			    .attr("markerWidth",5)
-			    .attr("markerHeight",5)
-			    .attr("refX",3)
-			    .attr("refY",3)
+			    .attr("markerWidth",7)
+			    .attr("markerHeight",7)
+			    .attr("refX",4)
+			    .attr("refY",4)
 			    .attr("orient","auto")
 			    .attr("markerUnits","userSpaceOnUse")
 			    ;
+			markerSquare.append("rect")
+                .attr("x", 1)
+                .attr("y", 1)
+                .attr("width", 5)
+                .attr("height", 5)
+                .attr("stroke", "none")
+                .attr("fill", "fill")
+			    .attr("markerUnits","userSpaceOnUse")
+            ;
             /*
             <marker id="markerSquare2" markerWidth="7" markerHeight="7" refx="4" refy="4"
                   orient="auto" markerUnits="userSpaceOnUse" >
@@ -126,6 +140,16 @@
 			    .attr("orient","auto")
 			    .attr("markerUnits","userSpaceOnUse")
 			    ;
+			markerSquare2.append("rect")
+                .attr("x", 1)
+                .attr("y", 1)
+                .attr("width", 5)
+                .attr("height", 5)
+                .attr("stroke", "black")
+                .attr("stroke-width", "1px")
+                .attr("fill", "white")
+			    .attr("markerUnits","userSpaceOnUse")
+            ;
             var circle = svg.selectAll("circle.touch");
                 /*
             var toucheFunction=function(event){
