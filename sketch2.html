@@ -50,6 +50,82 @@
             var svg = d3.select("body").append("svg")
                 .attr("width", width)
                 .attr("height", height);
+			var defs=svg.append("defs");
+			/*
+            <marker id="markerCross" markerWidth="5" markerHeight="5" refx="3" refy="3"
+                  orient="auto" markerUnits="userSpaceOnUse" >
+            		<line x1="1" y1="3" x2="5" y2="3" stroke="red"/>
+            		<line x1="3" y1="1" x2="3" y2="5" stroke="red"/>
+            </marker>
+            */
+			var markerCross=defs.append("marker")
+			    .attr("id","markerCross")
+			    .attr("refX",3)
+			    .attr("refY",3)
+			    .attr("markerWidth",5)
+			    .attr("markerHeight",5)
+			    .attr("orient","auto")
+		    ;
+			markerCross.append("line")
+                .attr("x1", 0)
+                .attr("y1", 3)
+                .attr("x2", 5)
+                .attr("y2", 3)
+                .attr("stroke", "red")
+			    .attr("markerUnits","userSpaceOnUse")
+            ;
+			markerCross.append("line")
+                .attr("x1", 3)
+                .attr("y1", 1)
+                .attr("x2", 3)
+                .attr("y2", 5)
+                .attr("stroke", "red")
+            ;
+            /*
+            <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6"
+               orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+            </marker>
+            */
+			var markerArrow=defs.append("marker")
+			    .attr("id","markerArrow")
+			    .attr("markerWidth",5)
+			    .attr("markerHeight",5)
+			    .attr("refX",3)
+			    .attr("refY",3)
+			    .attr("orient","auto")
+			    .attr("markerUnits","userSpaceOnUse")
+			    ;
+            /*
+            <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
+                  orient="auto" markerUnits="userSpaceOnUse" >
+              <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
+            </marker>
+            */
+			var markerSquare=defs.append("marker")
+			    .attr("id","markerSquare")
+			    .attr("markerWidth",5)
+			    .attr("markerHeight",5)
+			    .attr("refX",3)
+			    .attr("refY",3)
+			    .attr("orient","auto")
+			    .attr("markerUnits","userSpaceOnUse")
+			    ;
+            /*
+            <marker id="markerSquare2" markerWidth="7" markerHeight="7" refx="4" refy="4"
+                  orient="auto" markerUnits="userSpaceOnUse" >
+              <rect x="1" y="1" width="5" height="5" style="stroke: black; stroke-width:1px;fill:white;"/>
+            </marker>
+			*/
+			var markerSquare2=defs.append("marker")
+			    .attr("id","markerSquare2")
+			    .attr("markerWidth",5)
+			    .attr("markerHeight",5)
+			    .attr("refX",3)
+			    .attr("refY",3)
+			    .attr("orient","auto")
+			    .attr("markerUnits","userSpaceOnUse")
+			    ;
             var circle = svg.selectAll("circle.touch");
                 /*
             var toucheFunction=function(event){
@@ -90,37 +166,18 @@
 
             var container = transform.append("g")
             ;
-			/*
-			<defs>
-			  <marker id="markerCross" markerWidth="5" markerHeight="5" refx="3" refy="3"
-			          orient="auto" markerUnits="userSpaceOnUse" >
-						<line x1="1" y1="3" x2="5" y2="3" stroke="red"/>
-						<line x1="3" y1="1" x2="3" y2="5" stroke="red"/>
-			  </marker>
-		    <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6"
-		           orient="auto">
-		        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
-		    </marker>
-			  <marker id="markerSquare" markerWidth="7" markerHeight="7" refx="4" refy="4"
-			          orient="auto" markerUnits="userSpaceOnUse" >
-			      <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
-			  </marker>
-			  <marker id="markerSquare2" markerWidth="7" markerHeight="7" refx="4" refy="4"
-			          orient="auto" markerUnits="userSpaceOnUse" >
-			      <rect x="1" y="1" width="5" height="5" style="stroke: black; stroke-width:1px;fill:white;"/>
-			  </marker>
-			</defs>
-				<path id="origin"
-					d="M0,0
-					l0,100
-					"
-				style="stroke:#660000; fill:none;"/>  
-				<path id="origin"
-					d="M0,0
-					l100,0
-					"
-				style="stroke:#660000; fill:none;"/>  
-			*/
+            /*
+			<path id="origin"
+				d="M0,0
+				l0,100
+				"
+			style="stroke:#660000; fill:none;"/>  
+			<path id="origin"
+				d="M0,0
+				l100,0
+				"
+			style="stroke:#660000; fill:none;"/>  
+            */
 			container.append("line")
                 .attr("class", "origin")
                 .attr("x1", 0)
