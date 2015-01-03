@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://d3js.org/d3.v3.js"></script>
     </head>
     <body>
         <style>
@@ -243,11 +242,11 @@
     			updateStarted = false;
     		}
 
-
-function zoomed() {
-  container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    //transform.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ",-" + d3.event.scale + ")");
-}
+            
+            function zoomed() {
+              container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                //transform.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ",-" + d3.event.scale + ")");
+            }
     		timer = setInterval(update, 15);
         </script>        
     </body>
