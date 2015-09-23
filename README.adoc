@@ -8,3 +8,15 @@ It must meet the following requirement :
 - [ ] easy to use
 - [ ] from idea to 3D printing
 - ...
+
+[plantuml, diagram-classes, png]     
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
