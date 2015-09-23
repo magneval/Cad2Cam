@@ -7,16 +7,6 @@ It must meet the following requirement :
 - [ ] touch compatible
 - [ ] easy to use
 - [ ] from idea to 3D printing
+- [ ] Offline ready
+- [ ] versioned (github, bit bucket)
 - ...
-
-[plantuml, diagram-classes, png]     
-....
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
-
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
-....
